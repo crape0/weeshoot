@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weeshoot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    html{
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+     }  
+
+    body{
+      background:#111111;
+      color:white;
+      overflow-x: hidden;
+      height: 100%;
+    }
+    section{
+     scroll-margin-top: 100px;
+    }   
+
+    :root{
+      --yellow:white;
+      --black:#111111;
+      --dark:#1a1a1a;
+      --gray:#888;
+    }
+
+
+/* Optional: Styling for text or content inside the section */
+.content-overlay h1 {
+  font-family: sans-serif;
+  color: white;
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+
+.gallery-item .overlay {
+  opacity: 1;           /* Always show */
+  pointer-events: none; /* Let clicks pass through */
+}
+
+/* Optional: slightly darker dim */
+.gallery-item .overlay {
+  background: rgba(0,0,0,0.5); /* Adjust 0.5 for darkness (0.3=light, 0.8=dark) */
+}
+
+/* NAV EMAIL ICON */
+.nav-email-icon {
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.nav-email-icon:hover {
+  color: var(--yellow);
+}
+
+/* EMAIL POPUP MODAL (Pure CSS) */
+.email-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(0,0,0,0);
+  opacity: 0;
+  pointer-events: none;
+  transition: background 1s ease, opacity 1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.email-modal:target {
+  opacity: 1;
+  pointer-events: all;
+  background: rgba(0,0,0,0.93);
+}
+
+.email-modal-content {
+  background: #1a1a1a;
+  border: 1px solid var(--yellow);
+  border-radius: 20px;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 1.3s ease, opacity 1.3s ease;
+}
+
+.email-modal:target .email-modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Cancel button (matches your existing style) */
+.close-email-btn {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--yellow);
+  background: rgba(0,0,0,0.75);
+  color: var(--yellow);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.3s ease, background 0.3s, color 0.3s;
+}
+
+.email-modal:target .close-email-btn {
+  opacity: 1;
+  pointer-events: all;
+  transition-delay: 0.3s;
+}
+
+.close-email-btn:hover {
+  background: var(--yellow);
+  color: #000;
+}
+
+    /* NAVBAR */
+    nav{
+      width:100%;
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      z-index:1000;
+      background: black;
+      backdrop-filter:blur(10px);
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:700;
+      color:var(--yellow);
+      letter-spacing:2px;
+    }
+
+    nav ul{
+      display:flex;
+      gap:30px;
+      list-style:none;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+      transition:0.3s;
+      font-weight:500;
+    }
+
+    nav ul li a:hover{
+      color:var(--yellow);
+    }
+
+    /* HERO */
+    .hero{
+      height:100vh;
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 8%;
+      background-size:cover;
+      background-position:center;
+      background-blend-mode:darken;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content{
+      max-width:100%;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero h1{
+      font-size:70px;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero h1 span{
+      color:var(--yellow);
+    }
+
+    .hero p{
+      color:#d6d6d6;
+      line-height:1.8;
+      margin-bottom:30px;
+      font-size:18px;
+    }
+
+    #bg-video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.1);
+      object-fit: cover;
+      filter: blur(5px);
+      z-index: 0;
+   }
+
+   #bg-video source {
+      object-fit: cover;
+    }
+
+    #bg-video::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn{
+      padding:14px 32px;
+      background:var(--yellow);
+      border:none;
+      color:gray;
+      font-weight:700;
+      border-radius:40px;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:16px;
+    }
+
+    .btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 25px gray;
+    }
+
+    /* SECTION TITLE */
+    .section-title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .section-title h2{
+      font-size:42px;
+      color:var(--yellow);
+    }
+
+    .section-title p{
+      color:#aaa;
+      margin-top:10px;
+    }
+
+    /* GALLERY */
+    .gallery{
+      padding:100px 8%;
+      background:var(--black);
+    }
+
+    .video{
+      padding:100px 8%;
+      background:var(--black);
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+
+
+    .door-item{
+      overflow:hidden;
+      border-radius:20px;
+      position:relative;
+      cursor:pointer;
+    }
+
+    .door-item:hover .img{
+      transform:scale(1.3);
+      transition: 1s;
+    }
+
+    .gallery-item{
+      overflow:hidden;
+      border-radius:20px;
+      position:relative;
+      cursor:not-allowed;
+    }
+
+    .gallery-item img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+      transition:0.5s;
+      display:block;
+    }
+
+    .gallery-item:hover img{
+      transform:scale(1.1);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      justify-content:center;
+      align-items:center;
+      opacity:0;
+      transition:0.4s;
+      display: flex;
+    }
+
+    .overlay h3{
+      color:var(--yellow);
+      font-size:24px;
+      text-align: center;
+    }
+
+    .gallery-item:hover .overlay{
+      opacity:1;
+    }
+
+    /* ABOUT */
+    .about{
+      padding:100px 8%;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      align-items:center;
+      gap:50px;
+      background:whitesmoke;
+    }
+
+    .about img{
+      width:100%;
+      max-width:400px;
+      height:auto;
+      border-radius:25px;
+      display:block;
+      margin:0 auto;
+    }
+
+    .about-text h2{
+      font-size:48px;
+      margin-bottom:20px;
+      color:gray;
+    }
+
+    .about-text p{
+      color:gray;
+      line-height:1.9;
+      margin-bottom:20px;
+    }
+
+    /* ============================
+       READ MORE MODAL
+    ============================ */
+
+    /* The full-screen backdrop */
+    #readmore-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0);
+      transition: background 1s ease;
+      overflow: hidden;
+    }
+
+    #readmore-modal.open {
+      display: block;
+    }
+
+    #readmore-modal.animated {
+      background: rgba(0,0,0,0.93);
+    }
+
+    /* Inner wrapper — scales up slowly */
+    #modal-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 1.3s ease, transform 1.3s ease;
+    }
+
+    #readmore-modal.animated #modal-inner {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Binary + cube container inside modal */
+    #modal-inner .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #binaryCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: block;
+    }
+
+    .scene {
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+      z-index: 2;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 15s infinite linear;
+    }
+
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid #D4D7D9;
+      background: #00808073;
+      color: #D4D7D9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .front  { transform: rotateY(0deg)   translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg)  translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg)  translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    @keyframes rotateCube {
+      from { transform: rotateX(0deg)   rotateY(0deg); }
+      to   { transform: rotateX(360deg) rotateY(720deg); }
+    }
+
+    /* Close button — fixed at middle bottom */
+    #close-modal {
+      position: fixed;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10001;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid var(--yellow);
+      background: rgba(0,0,0,0.75);
+      color: var(--yellow);
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.3s ease, background 0.3s, color 0.3s;
+    }
+
+    #readmore-modal.animated #close-modal {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #close-modal:hover {
+      background: var(--yellow);
+      color: #000;
+    }
+
+    /* SERVICES */
+    .services{
+      padding:100px 8%;
+      background:var(--black);
+    }
+
+    .service-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:#1f1f1f;
+      padding:35px;
+      border-radius:20px;
+      transition:0.4s;
+      border:1px solid transparent;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      border-color:var(--yellow);
+    }
+
+    .card h3{
+      color:var(--yellow);
+      margin-bottom:15px;
+      font-size:24px;
+    }
+
+    .card p{
+      color:#bbb;
+      line-height:1.8;
+    }
+
+    /* SOCIAL LINKS */
+    .social-links{
+      display:flex;
+      background-color:black;
+      border-bottom: 1px solid var(--yellow);
+      border-top: 1px solid var(--yellow);
+      justify-content: center;
+      padding: 15px;
+      background-color:whitesmoke;
+    }
+
+
+/* Moving the background position to create the animation effect */
+@keyframes rainbowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+    footer{
+      background:black;
+      text-align:center;
+      padding:25px;
+      color:#888;
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp{
+      from{ opacity:0; transform:translateY(40px); }
+      to{   opacity:1; transform:translateY(0); }
+    }
+
+    /* MOBILE */
+    @media(max-width:768px){
+      #bg-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.1);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        filter: blur(5px);
+      }
+      .hero{ text-align:center; }
+      .hero h1{ font-size:48px; }
+      nav ul{ display:none; }
+    }
+
+    @media (max-width: 440px) {
+      #bg-video source { object-fit: cover; }
+      .hero{
+        height:100vh;
+        width: 100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:0 8%;
+        background-size:cover;
+        background-position:center;
+        background-blend-mode:darken;
+      }
+    }
+
+    /* ============================
+       SKILL MODAL STYLES (UPDATED)
+    ============================ */
+    #skill-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9997;
+      background: rgba(0,0,0,0);
+      transition: background 1s ease;
+      overflow: hidden;
+    }
+
+    #skill-modal.open {
+      display: flex;
+    }
+
+    #skill-modal.animated {
+      background: rgba(0,0,0,0.95);
+    }
+
+    .skill-modal-content {
+      width: 90%;
+      max-width: 600px;
+      padding: 40px;
+      background: #1a1a1a;
+      border-radius: 20px;
+      border: 1px solid var(--yellow);
+      margin: auto;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 1.3s ease, transform 1.3s ease;
+    }
+
+    #skill-modal.animated .skill-modal-content {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .skill-item {
+      margin-bottom: 25px;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: #ddd;
+      font-weight: 500;
+    }
+
+    .skill-bar {
+      width: 100%;
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: var(--yellow);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1s ease-in-out;
+      position: relative;
+    }
+
+    .skill-progress::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Cancel button for skill modal - bottom center (matching readmore-modal style) */
+    #close-skill-modal {
+      position: fixed;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10001;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid var(--yellow);
+      background: rgba(0,0,0,0.75);
+      color: var(--yellow);
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.3s ease, background 0.3s, color 0.3s;
+    }
+
+    #skill-modal.animated #close-skill-modal {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #close-skill-modal:hover {
+      background: var(--yellow);
+      color: #000;
+    }
+
+  .nav-email-icon {
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-email-icon:hover { color: var(--yellow); }
+
+/* Mobile positioning */
+@media(max-width:768px) {
+  nav ul { display: none; }
+  .nav-email-icon {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+  }
+}
+
+/* Mobile tweak for modal content so it fits small screens */
+@media(max-width:480px) {
+  .email-modal-content {
+    width: 92%;
+    padding: 30px 20px;
+  }
+  .email-modal-content h2 { font-size: 24px; }
+  .email-modal-content p { font-size: 15px; }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Weeshoot</div>
+    <ul>
+      <li><a href="#0">Top</a></li>
+      <li><a href="#1">Gallery</a></li>
+      <li><a href="#2">About</a></li>
+      <li><a href="#3">Services</a></li>
+      <li><a href="#4">Ai Art</a></li>
+    </ul>
+    <a href="#email-modal" class="nav-email-icon" style="text-decoration:none;">
+    <i class="fas fa-envelope"></i>
+  </a>
+  </nav>
+
+
+
+
+
+
+
+
+  <!-- HERO -->
+  <section class="hero" id="0">
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="lightingbackground.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>Capture Your <span>Beautiful</span> Moments</h1>
+      <p>
+        Professional photographer's cinematic portraits,
+        wedding memories, and stunning visual stories with passion
+        and creativity.
+      </p>
+      <button class="btn" onclick="showMessage()">No lover beside capture</button>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="1">
+    <div class="section-title">
+      <h2>Gallery</h2>
+      <p>Some of my favorite photography works with 12-megapixel rear camera but these Pictures vibrant without AI to making history :) </p>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="gallery-item">
+        <img src="camaraimg/5.jpeg" alt="">
+        <div class="overlay"><h3>Nature</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/3.jpeg" alt="">
+        <div class="overlay"><h3>Mood </h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/2.jpeg" alt="">
+        <div class="overlay"><h3>FreeStanding</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/4.jpeg" alt="">
+        <div class="overlay"><h3>Portrait</h3></div>
+      </div>
+
+      <div class="door-item">
+        <div class="img" style="width: 100%; height: 100%; background-color: whitesmoke;"><h3 style="display: flex; justify-content: center; align-items: center; height: 100%; color: gray;">Door Not Open Yet</h3><div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="2">
+    <img src="fb profile.png" alt="">
+    <div class="about-text">
+      <h2>About Me <h3 style="color: gray;">Name : Nayhan ( Programmer ). <a href="#" onclick="openSkillModal(event)"> {Read more} </a></h3></h2>
+      <p>
+        I am a passionate photographer focused on capturing emotions,
+        stories, and unforgettable memories through my lens.
+      </p>
+      <p>
+        With modern editing styles and cinematic photography,
+        I create timeless images that people love forever.
+      </p>
+      <button class="btn" onclick="openModal()">Inspiration</button>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+ <!---  <section class="video" id="5">
+    <div class="section-title">
+      <h2>Video</h2>
+      <p>Some of my favorite videos with iphone 7</p>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="gallery-item">
+        <img src="camaraimg/1.jpeg" alt="">
+        <div class="overlay"><h3>Nature</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/2.jpeg" alt="">
+        <div class="overlay"><h3>FreeStanding</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/3.jpeg" alt="">
+        <div class="overlay"><h3>Mood</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="camaraimg/4.jpeg" alt="">
+        <div class="overlay"><h3>black white</h3></div>
+      </div>
+
+
+      <div class="door-item">
+        <div class="img" style="width: 100%; height: 100%; background-color: whitesmoke;"><h3 style="display: flex; justify-content: center; align-items: center; height: 100%; color: gray;">Door Not Open Yet</h3><div>
+      </div>
+
+
+    </div>
+  </section> ->
+
+
+  <!-- ============================
+     EMAIL POPUP - Pure CSS (No JS)
+============================= -->
+<div id="email-modal" class="email-modal">
+  <div class="email-modal-content">
+    <h2 style="color:var(--yellow); margin-bottom:20px;">Contact Me</h2>
+    <p style="color:#bbb; margin-bottom:15px; line-height:1.6;">
+      Ready to capture your moments?<br>
+      Reach out directly via email.
+    </p>
+    <a href="mailto:your@email.com" style="color:var(--yellow); font-size:18px; text-decoration:none; border-bottom:1px dashed var(--yellow); padding-bottom:5px;">your@email.com</a>
+  </div>
+  <a href="#!" class="close-email-btn" title="Close">&#x2715;</a>
+</div>
+
+
+
+
+
+
+
+
+
+  <!-- ============================
+       BINARY + CUBE MODAL
+       Hidden — opens on Read More
+  ============================ -->
+  <div id="readmore-modal">
+    <div id="modal-inner">
+      <div class="container">
+        <canvas id="binaryCanvas"></canvas>
+        <div class="scene">
+          <div class="cube">
+            <div class="face front">THE LAST OF US</div>
+            <div class="face back">CHANGING</div>
+            <div class="face right">WAITING</div>
+            <div class="face left">WORLD</div>
+            <div class="face top">0101</div>
+            <div class="face bottom">1111</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Close button — middle bottom -->
+    <button id="close-modal" onclick="closeModal()" title="Close">&#x2715;</button>
+  </div>
+
+  <!-- ============================
+       SKILL MODAL - Hidden by default (UPDATED)
+  ============================ -->
+  <div id="skill-modal">
+    <div class="skill-modal-content">
+      <h2 style="color:var(--yellow); margin-bottom:30px; font-size:32px; text-align:center;">Integrated Level of Skills</h2>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>JavaScript</span>
+          <span>59%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="59%"></div></div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>HTML5</span>
+          <span>95%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="95%"></div></div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>CSS3</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>Photography</span>
+          <span>88%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="88%"></div></div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>Video Editing</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-info">
+          <span>Python</span>
+          <span>46%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-progress" data-width="46%"></div></div>
+      </div>
+    </div>
+    
+    <!-- Cancel button at bottom center -->
+    <button id="close-skill-modal" onclick="closeSkillModal()" title="Close">&#x2715;</button>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="3">
+    <div class="section-title">
+      <h2>Services</h2>
+      <p>Photography services I provide</p>
+    </div>
+    <div class="service-grid">
+      <div class="card">
+        <h3>Wedding Shoot</h3>
+        <p>Beautiful wedding photography with cinematic editing and emotional storytelling.</p>
+      </div>
+      <div class="card">
+        <h3>Portrait Shoot</h3>
+        <p>Creative portrait sessions with professional lighting and stylish compositions.</p>
+      </div>
+      <div class="card">
+        <h3>Travel Photography</h3>
+        <p>Capturing landscapes, adventures, and travel stories around the world.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL LINKS -->
+  <div class="social-links">
+    <a href="https://www.facebook.com/profile.php?id=100089620025238">
+      <img src="fb profile.png" alt="" style="height:150px;">
+      <h4 style="justify-content:center;display:flex;text-decoration-line:none;">Facebook Profile</h4>
+    </a>
+  </div>
+
+  <!-- Ai Art -->
+  <section class="gallery" id="4">
+    <div class="section-title">
+      <h2>AI Art</h2>
+      <p>Some of my favorite ai art works</p>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="gallery-item">
+        <img src="aimage/ai3.png">
+        <div class="overlay"><h3>Lonly Road</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="aimage/ai2.png">
+        <div class="overlay"><h3>No religion mind</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="aimage/3.png" alt="">
+        <div class="overlay"><h3>If this age seem to be the past</h3></div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="aimage/ai4.png" alt="">
+        <div class="overlay"><h3>Vision is Here...</h3></div>
+      </div>
+
+
+      <div class="door-item">
+        <div class="img" style="width: 100%; height: 100%; background-color: whitesmoke;"><h3 style="display: flex; justify-content: center; align-items: center; height: 100%; color: gray;">Door Not Open Yet</h3><div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 | ©opy right preserved 
+  </footer>
+
+
+  <script>
+    /* ===== MODAL ===== */
+    let rainInterval = null;
+
+    function openModal() {
+      const modal = document.getElementById('readmore-modal');
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+
+      // allow display to register, then trigger transitions
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          modal.classList.add('open', 'animated');
+          setTimeout(startBinaryRain, 300);
+        });
+      });
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('readmore-modal');
+      modal.classList.remove('animated');
+
+      stopBinaryRain();
+
+      setTimeout(() => {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 900);
+    }
+
+    /* ===== SKILL MODAL (FIXED & SLOW MOTION) ===== */
+    function openSkillModal(e) {
+      e.preventDefault();
+      const modal = document.getElementById('skill-modal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      // Trigger animations with delay for smooth entry (like Inspiration modal)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          modal.classList.add('open', 'animated');
+          // Animate progress bars after modal animation starts
+          setTimeout(() => {
+            document.querySelectorAll('.skill-progress').forEach(bar => {
+              bar.style.width = bar.getAttribute('data-width');
+            });
+          }, 400);
+        });
+      });
+    }
+
+    function closeSkillModal() {
+      const modal = document.getElementById('skill-modal');
+      
+      // Remove animated class first to trigger reverse transition (slow motion close)
+      modal.classList.remove('animated');
+      
+      // Reset progress bars immediately
+      document.querySelectorAll('.skill-progress').forEach(bar => {
+        bar.style.width = '0';
+      });
+
+      // Wait for transition to complete before hiding (matching Inspiration modal timing)
+      setTimeout(() => {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 900);
+    }
+
+    /* ===== BINARY RAIN ===== */
+    function startBinaryRain() {
+      const canvas = document.getElementById('binaryCanvas');
+      const ctx    = canvas.getContext('2d');
+
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const fontSize = 14;
+      const cols     = Math.floor(canvas.width / fontSize);
+      const drops    = Array(cols).fill(1);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#CD7F32';
+        ctx.font      = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          ctx.fillText(Math.random() > 0.5 ? '1' : '0', i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+      }
+
+      rainInterval = setInterval(draw, 40);
+    }
+
+    function stopBinaryRain() {
+      clearInterval(rainInterval);
+      rainInterval = null;
+      const canvas = document.getElementById('binaryCanvas');
+      if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    /* ===== GENERAL ===== */
+    function showMessage() {
+      alert("Welcome to Weeshoot! Explore the gallery, learn about my services, and feel free to reach out for collaborations or inquiries. Happy browsing!");
+    }
+
+    const cards = document.querySelectorAll('.card, .gallery-item');
+
+    window.addEventListener('scroll', () => {
+      cards.forEach(card => {
+        if (card.getBoundingClientRect().top < window.innerHeight - 100) {
+          card.style.opacity   = "1";
+          card.style.transform = "translateY(0)";
+        }
+      });
+    });
+
+    cards.forEach(card => {
+      card.style.opacity   = "0";
+      card.style.transform = "translateY(50px)";
+      card.style.transition = "0.6s ease";
+    });
+  </script>
+
+</body>
+</html>
