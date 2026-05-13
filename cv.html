@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Nay Han Giri · CV | Modern Black & White</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #eaeaea;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      color: #111;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+
+    /* floating PDF button */
+    .pdf-float-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #000;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .pdf-float-btn:hover {
+      background: #222;
+      transform: scale(1.02);
+    }
+    @media print {
+      .pdf-float-btn {
+        display: none;
+      }
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .cv-container {
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .skill-tag {
+        border: 1px solid #000;
+        color: #000;
+        background: transparent;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .left-panel {
+        background: #000 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .left-panel .skill-tag {
+        border-color: #fff;
+        color: #fff;
+        background: transparent;
+      }
+      .exp-badge {
+        background: #000;
+        color: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .profile-text {
+        background: #f9f9f9;
+        border-left: 3px solid #000;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      .contact-item span a {
+        color: white;
+      }
+    }
+
+    /* CV container same as before */
+    .cv-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 34% 66%;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+    }
+
+    .left-panel {
+      background: #000000;
+      color: #fefefe;
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .right-panel {
+      background: #ffffff;
+      color: #111111;
+      padding: 2rem 2.2rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid currentColor;
+      display: inline-block;
+      padding-bottom: 0.35rem;
+    }
+
+    .left-panel .section-title {
+      border-bottom-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .right-panel .section-title {
+      border-bottom-color: #000000;
+      color: #000000;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      word-break: break-word;
+      color: #f0f0f0;
+    }
+    .contact-item i {
+      width: 1.3rem;
+      font-size: 1.05rem;
+      color: #ffffff;
+    }
+    .placeholder-meta a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 0.5px dotted rgba(255,255,255,0.6);
+    }
+
+    .skills-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.25rem;
+    }
+    .skill-tag {
+      background: transparent;
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 40px;
+    }
+
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .lang-item {
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.08);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      border: 0.5px solid rgba(255,255,255,0.3);
+    }
+
+    .hero-name h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #000;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-tagline {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #3a3a3a;
+      border-left: 3px solid #000;
+      padding-left: 1rem;
+    }
+
+    .profile-text {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #1e1e1e;
+      margin-bottom: 1.8rem;
+      background: #f9f9f9;
+      padding: 1rem 1.2rem;
+      border-left: 3px solid #000;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: baseline;
+      margin-bottom: 0.6rem;
+    }
+    .exp-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #000;
+    }
+    .exp-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: #000;
+      color: #fff;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+    }
+    .exp-company {
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: #3a3a3a;
+      margin-bottom: 0.7rem;
+      text-transform: uppercase;
+    }
+    .exp-list {
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .exp-list li {
+      font-size: 0.85rem;
+      margin-bottom: 0.55rem;
+      list-style-type: none;
+      position: relative;
+    }
+    .exp-list li::before {
+      content: "—";
+      position: absolute;
+      left: -1.1rem;
+      color: #000;
+      font-weight: 600;
+    }
+    .edu-date {
+      font-weight: 700;
+      font-size: 0.8rem;
+      background: #f0f0f0;
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: #ddd;
+    }
+
+    @media (max-width: 850px) {
+      body { padding: 1rem; }
+      .cv-container { grid-template-columns: 1fr; }
+      .hero-name h1 { font-size: 2.5rem; }
+      .pdf-float-btn { bottom: 1rem; right: 1rem; padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="pdf-float-btn" onclick="window.print();">
+  <i class="fas fa-file-pdf"></i> Save as PDF
+</button>
+
+<div class="cv-container">
+  <!-- LEFT PANEL: BLACK BACKGROUND -->
+  <div class="left-panel">
+    <div>
+      <div class="section-title">CONTACT</div>
+      <div class="contact-item"><i class="fas fa-phone-alt"></i><span>0614303301</span></div>
+      <div class="contact-item"><i class="fas fa-envelope"></i><span>nayhan2007@proton.me</span></div>
+      <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Mae Sot, Tak, Thailand</span></div>
+      <div class="contact-item"><i class="fas fa-globe"></i><span class="placeholder-meta"><a href="https://nayhanme.github.io/weeshoot/" target="_blank" rel="noopener noreferrer">GitHub Page</a></span></div>
+    </div>
+
+    <div>
+      <div class="section-title">TECH & DESIGN</div>
+      <div class="skills-wrapper">
+        <span class="skill-tag">HTML, CSS, JS</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">Frontend Dev</span>
+        <span class="skill-tag">Backend Basics</span>
+        <span class="skill-tag">Photo Editing</span>
+        <span class="skill-tag">Visual Design</span>
+        <span class="skill-tag">UI/UX Concepts</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Creative Thinking</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">LANGUAGES</div>
+      <div class="lang-list">
+        <span class="lang-item">🇬🇧 English</span>
+        <span class="lang-item">🇲🇲 Burmese</span>
+        <span class="lang-item">🇳🇵 Nepali</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; font-size: 0.7rem; opacity: 0.6;">
+      <i class="fas fa-code"></i> <span>clean design · monochrome</span>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: WHITE BACKGROUND -->
+  <div class="right-panel">
+    <div class="hero-name">
+      <h1>NAY HAN GIRI</h1>
+      <div class="hero-tagline">Developer · Programmer · Photo Editor</div>
+    </div>
+
+    <div>
+      <div class="section-title">PROFILE</div>
+      <div class="profile-text">
+        Motivated and creative developer with experience in programming, web design, and photo editing. 
+        Passionate about building modern websites, user-friendly applications, and digital content. 
+        Strong interest in technology, coding, and visual creativity with the ability to learn quickly 
+        and adapt to new tools and challenges.
+      </div>
+    </div>
+
+    <div style="margin-top: 0.6rem;">
+      <div class="section-title">EXPERIENCE</div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-title">Junior Developer & Programmer</span>
+          <span class="exp-badge">1 Year Experience</span>
+        </div>
+        <div class="exp-company">Full-stack & Creative Development · Freelance / Projects</div>
+        <ul class="exp-list">
+          <li>Built responsive websites and small projects using HTML, CSS, and JavaScript.</li>
+          <li>Worked on programming projects and application ideas (React Native prototypes, Python scripts).</li>
+          <li>Designed and edited visual content using photo editing tools (Adobe suite / Pixel based).</li>
+          <li>Learned modern development technologies and improved coding skills through practice and real-world challenges.</li>
+        </ul>
+      </div>
+      <div style="margin-bottom: 1rem; background: #fafafa; padding: 0.6rem 0.8rem; border-left: 2px solid #000; font-size: 0.8rem;">
+        <i class="fas fa-camera" style="margin-right: 8px;"></i> <strong>Photo Editing & Visual Design</strong> — Retouching, visual storytelling, asset creation for digital projects.
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">EDUCATION</div>
+      <div class="edu-card">
+        <div class="edu-date">🎓 Completion: 2026</div>
+        <p><strong>Focus:</strong> Technology, Programming & Digital Creativity</p>
+        <p style="font-size:0.85rem; margin-top: 0.4rem;">Intensive curriculum blending software development, web technologies, and creative computing. Strong foundation in algorithmic thinking, UI/UX, and project-based learning.</p>
+      </div>
+    </div>
+
+    <hr />
+    <div style="display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: space-between; margin-top: 0.8rem;">
+      <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600;"><i class="fas fa-laptop-code"></i> modern stacks</div>
+      <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600;"><i class="fas fa-pen-fancy"></i> visual minimalism</div>
+      <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600;"><i class="fas fa-brain"></i> fast learner</div>
+    </div>
+    <div style="margin-top: 1.2rem; font-size: 0.7rem; color: #444; border-top: 1px solid #eee; padding-top: 0.8rem; text-align: right;">
+      <i class="fas fa-qrcode"></i> portfolio & github — ready to collaborate
+    </div>
+  </div>
+</div>
+
+<script>
+  // optional: ensure print dialog captures the cv perfectly with a small delay if needed
+  // just using window.print on button click is enough.
+  // also you can add a keyboard shortcut listener (Ctrl+P) is native.
+</script>
+</body>
+</html>
